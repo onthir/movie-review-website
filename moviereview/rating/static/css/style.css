@@ -1,0 +1,15 @@
+/* styles */
+body{
+    background: black;
+    color: white;
+}
+
+/* thumbnail image */
+#thumbnail{
+    height: 240px;
+}
+
+/* technical like director and cast */
+#technical{
+    color: steelblue;
+}

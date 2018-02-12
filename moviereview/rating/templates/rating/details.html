@@ -1,0 +1,50 @@
+{% extends 'rating/base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <!-- here goes the image -->
+            <img class="img-fluid" src="{{ movie.image }}" alt="" style="width:250px;">
+
+            <!-- delete and edit buttons -->
+            <br><br>
+            {% if request.user.is_superuser %}
+            <a href="{% url 'update_movie' movie.slug %}" class="btn btn-md btn-warning">Edit Movie</a>
+            <a href="{% url 'delete_movie' movie.slug %}" class="btn btn-md btn-danger">Delete Movie</a>
+            {%  endif %}
+        </div>
+
+        <div class="col-md-8">
+            <!-- here goes the details of the movie -->
+            <h2>{{ movie.title }}</h2>
+            <p>{{ movie.description }}</p>
+            <h4>{{ movie.released_date }}</h4>
+            <h4>Director: <i id="technical">{{ movie.director }}</i></h4>
+            <h4>Case: <i id="technical">{{ movie.cast }}</i></h4>
+        </div>
+    </div>
+    <!-- movie reviews -->
+    <h1 class="text-center">User Reviews</h1>
+    <div class="text-center">
+        <a href="{% url 'add_review' movie.slug %}" class="btn btn-md btn-primary">Add your own Review</a>
+    </div>
+    <div class="row">
+        {% for r in reviews %}
+        <div class="col-md-2">
+            <h5 class="badge badge-primary">{{ r.user }} <br> <strong>Rating: </strong> <span style="color:orange;">{{ r.rating }}/10</span></h5>
+        </div>
+        <div class="col-md-12">
+                <p>{{ r.review }}</p>
+                {% if request.user == r.user %}
+                <a href="{% url 'edit_review' r.movie.slug r.id %}">Edit</a>
+                <a href="{% url 'delete_review' r.movie.slug r.id %}"> Delete</a>
+                {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

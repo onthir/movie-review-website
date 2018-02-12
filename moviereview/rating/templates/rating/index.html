@@ -1,0 +1,20 @@
+{% extends 'rating/base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Recently Added Movies</h1>
+    <div class="row">
+            {% for p in movies %}
+        <div class="col-md-3">
+            <img class="img-fluid" src="{{ p.image }}" alt="{{ p.title }}" id="thumbnail">
+            <h4>{{ p.title }}</h4>
+            <h6>Director: <i> {{ p.director }} </i></h6>
+            <a href="{% url 'details' p.slug %}">Read More</a>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+{% endblock %}

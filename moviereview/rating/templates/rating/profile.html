@@ -1,0 +1,16 @@
+{% extends 'rating/base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Profile:  {{ username | upper }}</h1>
+    <h1>{{ user.usernmae }}</h1>
+    {% for i in reviews %}
+        <h3>{{ i.movie.title }}</h3>
+        <p>{{ i.review }}</p>
+        <h6>Rating: {{ i.rating }}</h6>
+        <hr style="color:white;">
+    {% endfor %}
+</div>
+
+{% endblock %}

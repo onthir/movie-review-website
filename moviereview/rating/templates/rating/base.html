@@ -1,0 +1,68 @@
+<!-- this is going to be the base for all other templates -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MovieReview</title>
+
+    <!-- bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- static files -->
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color:rgb(14, 14, 14);">
+      <div class="container">
+          <a class="navbar-brand text-white" href="/" id="brand">Movie<span style="color:steelblue;">Review</span></a>
+          <button class="navbar-toggler bg-white" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+              aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="nav navbar-nav ml-auto w-100 justify-content-end" id="item">
+                {% if not request.user.is_authenticated %}
+                  <li class="nav-item active">
+                      <a class="nav-link text-white" href="{% url 'register' %}">Register
+                          <span class="sr-only">(current)</span>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link text-white" href="{% url 'login_user' %}">Login</a>
+                  </li>
+                  {% else %}
+                  <li class="nav-item active">
+                      <a class="nav-link text-white" href="{% url 'profile' user.username %}">{{user.username}}
+                          <span class="sr-only">(current)</span>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link text-white" href="{% url 'logout_user'  %}">Logout</a>
+                  </li>
+                  {% endif %}
+                  <div>
+                      <!--this is the input for the search-->
+                      <form class="form-inline my-2 my-lg-0" method="GET" action="#" id="search">
+                          <input class="form-control mr-sm-2" type="text" name='q' value="" placeholder="Search Movies">
+                          <input class="btn btn-outline-info my-2 my-sm-0" type="submit" value="Search"></input>
+                      </form>
+                      <!--end of input-->
+                  </div>
+              </ul>
+          </div>
+      </div>
+  </nav>
+<!-- contents are displayed between navbar and footer -->
+{% block content %}
+
+
+{% endblock %}
+<!-- here goes the footer -->
+<footer>Copyright, All Rights Reserved</footer>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- bootstrap cdn javascript -->
+</body>
+</html>
